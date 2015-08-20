@@ -20,7 +20,11 @@ fs.readFile('toUseInExpressApp/users.json', {encoding: 'utf8'}, function(err, da
 
 
 app.get('/', function(req, res, next){
-  res.send(JSON.stringify(users, null, 2));
+  var buffer = '';
+  users.forEach(function(user){
+    buffer += user.name.title + ' ' + user.name.full + '<br>';
+  })
+  res.send(buffer);
 });
 
 app.get('/yo', function(req, res, next){
