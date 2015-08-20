@@ -18,7 +18,7 @@ fs.readFile('toUseInExpressApp/users.json', {encoding: 'utf8'}, function(err, da
 
 
 
-
+// different routes to access
 app.get('/', function(req, res, next){
   var buffer = '';
   users.forEach(function(user){
