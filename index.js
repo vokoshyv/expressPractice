@@ -22,14 +22,29 @@ fs.readFile('toUseInExpressApp/users.json', {encoding: 'utf8'}, function(err, da
 app.get('/', function(req, res, next){
   var buffer = '';
   users.forEach(function(user){
-    buffer += user.name.title + ' ' + user.name.full + '<br>';
+    buffer += '<a href="' + user.username + '">' + user.name.title + ' ' + user.name.full + '<br>';
   })
   res.send(buffer);
 });
 
-app.get('/yo', function(req, res, next){
-  res.send('I say yo!');
+app.get('/:userURL', function(req, res, next){
+  var username = req.params.userURL;
+  res.send(username);
+  next();
 });
+
+app.get(/big.*/, function(req, res, next){
+  console.log('BIG USER ACCESS');
+  next();
+})
+
+
+
+
+
+
+
+
 
 var server = app.listen(3000, function(){
   console.log('Server is running at localhost:' + server.address().port);
