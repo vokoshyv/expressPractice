@@ -25,6 +25,9 @@ app.engine('hbs', engines.handlebars);
 app.set('views', './views');
 app.set('view engine', 'hbs');
 
+// adding in the ability to send back static files
+app.use(express.static('toUseInExpressApp/images'));
+
 // different routes to access
 app.get('/', function(req, res, next){
   res.render('index', {users: users});
