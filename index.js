@@ -4,6 +4,7 @@ var app = express();
 // some tools to manipulate files
 var fs = require('fs');
 var _ = require('lodash');
+var engines = require('consolidate');
 
 var users = [];
 
@@ -16,15 +17,17 @@ fs.readFile('toUseInExpressApp/users.json', {encoding: 'utf8'}, function(err, da
   })
 })
 
+// for our app engine, whne using hbs, we'll use handlebars
+// within consolidate; 
+app.engine('hbs', engines.handlebars);
 
+// setting up view engines
+app.set('views', './views');
+app.set('view engine', 'hbs');
 
 // different routes to access
 app.get('/', function(req, res, next){
-  var buffer = '';
-  users.forEach(function(user){
-    buffer += '<a href="' + user.username + '">' + user.name.title + ' ' + user.name.full + '<br>';
-  })
-  res.send(buffer);
+  res.render('index', {users: users});
 });
 
 app.get('/:userURL', function(req, res, next){
